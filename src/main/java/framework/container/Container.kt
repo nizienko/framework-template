@@ -7,7 +7,6 @@ import java.util.*
  * Created by def on 21.02.17.
  */
 
-
 val container: MutableMap<String, Any> = HashMap()
 val inProgressList: MutableList<String> = ArrayList()
 
@@ -20,7 +19,6 @@ fun get(kClass: Class<*>): Any {
         }
         inProgressList.add(name)
         container.put(name, kClass.newInstance())
-        println("$name created")
         inProgressList.remove(name)
     }
     return container[kClass.name]!!
