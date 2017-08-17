@@ -1,19 +1,27 @@
 package example.contnent.yandex.blocks
 
-import selenium.element
+import frontend.content.blocks.common.Element
+import frontend.content.blocks.common.TextField
+import frontend.core.Block
 import org.openqa.selenium.By
-import org.openqa.selenium.SearchContext
+import selenium.byBem
+import selenium.hasBlock
 
-class SearchBlock(val parentBlock: SearchContext) {
-    val thisBlock = element {
-        parentBlock.findElement(By.className("container__search"))
+class SearchBlock : Block() {
+    override fun lateInit() {
+        this name "Блок поиска"
+        this found byBem(
+                block = "container",
+                element = "search")
     }
 
-    val searchField = element {
-        thisBlock.findElement(By.id("text"))
+    val searchField = this.hasBlock<TextField> {
+        name { "Строка поиска" }
+        found { By.id("text") }
     }
 
-    val searchButton = element {
-        thisBlock.findElement(By.className("suggest2-form__button"))
+    val searchButton = this.hasBlock<Element> {
+        name { "Искать" }
+        found { byBem(block = "suggest2-form", element = "button") }
     }
 }

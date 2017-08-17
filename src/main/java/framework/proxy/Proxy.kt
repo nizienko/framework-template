@@ -14,10 +14,6 @@ class Proxy<out T>(val block: () -> T) : MethodInterceptor {
         } catch (e: InvocationTargetException) {
             throw e.cause!!
         }
-        if (result != null) {
-            return result
-        } else {
-            return null
-        }
+        return result
     }
 }
