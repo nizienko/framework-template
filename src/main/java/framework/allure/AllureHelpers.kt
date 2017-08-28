@@ -1,8 +1,6 @@
 package allure
 
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Assert.assertTrue
-import org.openqa.selenium.WebElement
 import ru.yandex.qatools.allure.annotations.Step
 
 /**

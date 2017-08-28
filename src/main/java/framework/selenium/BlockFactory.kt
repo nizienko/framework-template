@@ -1,7 +1,6 @@
 package selenium
 
 import framework.selenium.createBlock
-import frontend.core.Block
 import org.openqa.selenium.By
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.WebElement

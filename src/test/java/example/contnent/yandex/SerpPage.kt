@@ -6,7 +6,7 @@ import selenium.block
 
 
 class SerpPage {
-    val searchBlock = block<SearchBlock>()
-    val serpListBlock = block<SerpListBlock>()
+    val searhBlock = block<SearchBlock>()
+    val resultBlock = block<SerpListBlock>()
 
 }

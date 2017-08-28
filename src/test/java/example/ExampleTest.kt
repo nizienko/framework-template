@@ -5,7 +5,6 @@ import example.contnent.yandex.SerpPage
 import example.contnent.yandex.YandexPage
 import framework.container.di
 import org.junit.Test
-import kotlin.test.assertTrue
 
 
 class ExampleTest : Suite() {
@@ -21,14 +20,11 @@ class ExampleTest : Suite() {
                 searchButton.click()
             }
         }
-        serpPage
-                .serpListBlock
-                .serpItems()
+        serpPage.resultBlock.serpItems()
                 .forEach {
                     checkThat("${it.name} содержит kotlin в content") {
                         it.content.text.toLowerCase().contains("kotlin")
                     }
                 }
-
     }
 }
