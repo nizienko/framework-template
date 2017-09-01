@@ -5,12 +5,13 @@ import org.openqa.selenium.By
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
+import selenium.getWebDriver
 import selenium.rootElement
 
 fun createBlock(kClass: Class<*>, searchContext: SearchContext): Block {
-    when (searchContext) {
-        is WebElement -> return createBlock(kClass, searchContext)
-        is WebDriver -> return createBlock(kClass, rootElement())
+    return when (searchContext) {
+        is WebElement -> createBlock(kClass, searchContext)
+        is WebDriver -> createBlock(kClass, { rootElement() })
         else -> throw IllegalStateException("Unknown searchContext")
     }
 }
@@ -19,16 +20,13 @@ fun createBlock(kClass: Class<*>, searchContext: SearchContext, locator: By): Bl
     return createBlock(kClass, { searchContext.findElement(locator) })
 }
 
-fun createBlock(kClass: Class<*>, findElement: () -> WebElement): Block {
-    return createBlock(kClass, element(findElement))
-}
 
-fun createBlock(kClass: Class<*>, element: WebElement): Block {
+fun createBlock(kClass: Class<*>, findElement: () -> WebElement): Block {
     if (kClass.superclass != Block::class.java) {
         throw IllegalStateException("Can't create block")
     }
     val block = kClass.newInstance() as Block
-    block.blockRootElement = element
+    block.blockRootElement = findElement
     block.lateInit()
     return block
 }
