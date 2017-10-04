@@ -1,5 +1,6 @@
 package example.contnent
 
+import allure.step
 import example.contnent.yandex.YandexPage
 import framework.container.di
 
@@ -7,6 +8,8 @@ class ExampleStep {
     val yandexPage: YandexPage by di()
 
     fun printHelloWorld() {
-        println("Hello world")
+        step("Написать hello world") {
+            println("Hello world")
+        }
     }
 }
