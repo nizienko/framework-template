@@ -1,5 +1,6 @@
 package example.contnent.yandex.blocks
 
+import content.blocks.common.TextField
 import frontend.content.blocks.common.Element
 import frontend.core.Block
 import org.openqa.selenium.By
@@ -14,7 +15,7 @@ class SearchBlock : Block() {
                 element = "search")
     }
 
-    val searchField = this.hasBlock<Element> {
+    val searchField = this.hasBlock<TextField> {
         name { "Строка поиска" }
         found { By.id("text") }
     }
