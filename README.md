@@ -1,7 +1,7 @@
 # frameworktemplate
 Quick start of test automation with kotlin
 
-1. Block: create your blocks using other blocks.
+1. Block: construct your blocks using other blocks.
 Please see the example:
     https://github.com/nizienko/framework-template/blob/master/src/test/java/example/contnent/yandex/blocks/SearchBlock.kt
     Overriding lateinit fun you can specify name(for allure report) and locator of current block. It is useful when this block could be found by the locator always.
@@ -10,12 +10,7 @@ To specify block inside another block:
     `this.hasBlock<%BLOCK_TYPE%>{name {"%BLOCK_NAME%"} found {%LOCATOR%}}` - this block will be searched in current block context.
 To specify block inside page:
 `block<%BLOCK_TYPE%>{name {"%BLOCK_NAME%"} found {%LOCATOR%}}`
-If blocks name and found already described in it lateinit fun, you can use
-    `this.hasBlock<%BLOCK_TYPE%>()`
-or
-
-    `block<%BLOCK_TYPE%>()`
-
+If blocks 'name' and 'found' already described in it lateinit function, you can just simple use `this.hasBlock<%BLOCK_TYPE%>()` or `block<%BLOCK_TYPE%>()`
 
 2. Page: just specify blocks and functions for page:
     https://github.com/nizienko/framework-template/blob/master/src/test/java/example/contnent/yandex/YandexPage.kt
