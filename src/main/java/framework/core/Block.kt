@@ -1,6 +1,8 @@
 package frontend.core
 
 import allure.step
+import framework.selenium.attempt
+import framework.selenium.findVisibleElement
 import org.openqa.selenium.*
 
 /**
@@ -12,45 +14,57 @@ abstract class Block : WebElement {
 
     infix fun found(locator: By) {
         val innerBlockRootElement = blockRootElement
-        blockRootElement = { innerBlockRootElement().findElement(locator) }
+        blockRootElement = { innerBlockRootElement().findVisibleElement(locator) }
     }
 
     infix fun name(name: String) {
         this.name = name
     }
 
+    fun getThisElement(): WebElement {
+        return attempt(10) { blockRootElement() }
+    }
+
     open fun lateInit() {}
 
     override fun isDisplayed(): Boolean = blockRootElement().isDisplayed
-    override fun clear() = blockRootElement().clear()
+    override fun clear() = getThisElement().clear()
 
-    override fun submit() = blockRootElement().submit()
+    override fun submit() = getThisElement().submit()
 
-    override fun getLocation(): Point = blockRootElement().location
+    override fun getLocation(): Point = getThisElement().location
 
-    override fun <X : Any?> getScreenshotAs(p0: OutputType<X>?): X = blockRootElement().getScreenshotAs(p0)
+    override fun <X : Any?> getScreenshotAs(p0: OutputType<X>?): X = getThisElement().getScreenshotAs(p0)
 
-    override fun findElement(p0: By?): WebElement = blockRootElement().findElement(p0)
+    override fun findElement(p0: By?): WebElement = getThisElement().findElement(p0)
 
-    override fun click() = step("Кликаем по '$name'") { blockRootElement().click() }
+    override fun click() = step("Кликаем по '$name'") { getThisElement().click() }
 
-    override fun getTagName(): String = blockRootElement().tagName
+    override fun getTagName(): String = getThisElement().tagName
 
-    override fun getSize(): Dimension = blockRootElement().size
+    override fun getSize(): Dimension = getThisElement().size
 
-    override fun getText(): String = blockRootElement().text
+    override fun getText(): String = getThisElement().text
 
-    override fun isSelected(): Boolean = blockRootElement().isSelected
+    override fun isSelected(): Boolean = getThisElement().isSelected
 
-    override fun isEnabled(): Boolean = blockRootElement().isEnabled
+    override fun isEnabled(): Boolean = getThisElement().isEnabled
 
-    override fun sendKeys(vararg p0: CharSequence?) = blockRootElement().sendKeys(*p0)
+    override fun sendKeys(vararg p0: CharSequence?) = getThisElement().sendKeys(*p0)
 
-    override fun getAttribute(p0: String?): String = blockRootElement().getAttribute(p0)
+    override fun getAttribute(p0: String?): String = getThisElement().getAttribute(p0)
 
-    override fun getRect(): Rectangle = blockRootElement().rect
+    override fun getRect(): Rectangle = getThisElement().rect
 
-    override fun getCssValue(p0: String?): String = blockRootElement().getCssValue(p0)
+    override fun getCssValue(p0: String?): String = getThisElement().getCssValue(p0)
 
-    override fun findElements(p0: By?): MutableList<WebElement> = blockRootElement().findElements(p0)
+    override fun findElements(p0: By?): MutableList<WebElement> = getThisElement().findElements(p0)
+
+    fun isExist(): Boolean {
+        try {
+            return blockRootElement().isDisplayed
+        } catch (e: Exception) {
+            return false
+        }
+    }
 }

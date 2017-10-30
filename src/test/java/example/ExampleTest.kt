@@ -16,7 +16,7 @@ class ExampleTest : Suite() {
         with(yandexPage) {
             open()
             with(searchBlock) {
-                searchField.fill("Kotlin")
+                searchField.sendKeys("Kotlin")
                 searchButton.click()
             }
         }

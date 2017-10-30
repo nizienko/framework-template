@@ -23,7 +23,7 @@ fun byBem(block: String, element: String = "", modifiers: Map<String, String> = 
 
     xpath.append(".//*${classContains(name)}")
     modifiers.forEach { k, v ->
-        xpath.append("[${name}_${k}_${v}]")
+        xpath.append(classContains("${name}_${k}_${v}"))
     }
 
     if (hasText.isNotEmpty()) {

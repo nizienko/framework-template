@@ -30,6 +30,12 @@ inline fun <reified T> SearchContext.hasBlock(locator: By): T {
     return createBlock(T::class.java, this, locator) as T
 }
 
+inline fun <reified T> SearchContext.hasBlock(name: String, locator: By): T {
+    val block = createBlock(T::class.java, this, locator)
+    block.name = name
+    return block as T
+}
+
 inline fun <reified T> SearchContext.hasBlocks(locator: By): () -> List<T> {
     return { this.findElements(locator).map { createBlock(T::class.java, { it }) as T } }
 }

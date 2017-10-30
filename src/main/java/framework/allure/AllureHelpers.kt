@@ -1,5 +1,6 @@
 package allure
 
+import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import ru.yandex.qatools.allure.annotations.Step
 
@@ -8,27 +9,26 @@ import ru.yandex.qatools.allure.annotations.Step
  */
 
 @Step("{1}")
+fun <O> step(title: String, block: () -> O): O {
+    println(title)
+    return block()
+}
+
+@Step("{1}")
 fun step(title: String, block: () -> Unit) {
     println(title)
     block()
 }
 
-fun checkThat(description: String, whatCheck: ()->Boolean){
-    step(description) {
-        tryDo(5) {
-            assertThat(description, whatCheck())
-        }
+fun checkThat(description: String, whatCheck: () -> Boolean) {
+    step("Проверяем, что $description") {
+        assertThat(description, whatCheck())
     }
 }
 
-fun tryDo(times: Int, whatDo: ()-> Unit) {
-    for (i in 1..times) {
-        try {
-            whatDo()
-            break
-        }
-        catch (e: Exception){
-            Thread.sleep(1000)
-        }
+fun <O> checkThat(description: String, o: O, matcher: Matcher<O>) {
+    step("Проверяем, что $description") {
+        assertThat(description, o, matcher)
     }
 }
+
