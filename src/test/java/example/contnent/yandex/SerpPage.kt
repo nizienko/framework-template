@@ -8,5 +8,4 @@ import selenium.block
 class SerpPage {
     val searhBlock = block<SearchBlock>()
     val resultBlock = block<SerpListBlock>()
-
 }

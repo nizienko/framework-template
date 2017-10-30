@@ -5,7 +5,6 @@ import selenium.block
 import selenium.getWebDriver
 
 class YandexPage {
-
     val searchBlock = block<SearchBlock>()
 
     fun open(): YandexPage {
